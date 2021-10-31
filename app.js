@@ -15,7 +15,7 @@ bot.command('help', ctx => {
 
 bot.hears('play', ctx => {
     console.log(ctx.from)
-    let playMessage = 'Успіхів! Щоб почати гру натисніть "Старт", якщо ти хочеш вийти натисніть "Cancel"';
+    let playMessage = 'Успіхів! Щоб почати гру натисніть на "Питання", якщо ти хочеш вийти натисніть "Вийти"';
     ctx.deleteMessage();
     bot.telegram.sendMessage(ctx.chat.id, playMessage, {
         reply_markup: {
@@ -39,6 +39,10 @@ bot.hears('play', ctx => {
                 [{
                     text: "Питання №5",
                     callback_data: 'question5'
+                },
+                {
+                    text: "Питання №6",
+                    callback_data: 'question6'
                 }],
                 [{
                     text: "Вийти",
@@ -84,6 +88,13 @@ bot.telegram.sendPhoto(ctx.chat.id, {
     source: "res/frame5.png"
 })
 })
+
+bot.action('question6', ctx => {
+    bot.telegram.sendMessage(ctx.chat.id, 'Із якого фільму прикріплений кадр? \nЩоб зробити вибір напишіть "choice6"')
+    bot.telegram.sendPhoto(ctx.chat.id, {
+        source: "res/frame6.png"
+    })
+    })
 
 //Выход из панели игры
 bot.action('Cancel', ctx => {
@@ -193,8 +204,8 @@ bot.hears('choice3', ctx => {
                     callback_data: 'avatar'
                 },
                 {
-                    text: "Оно",
-                    callback_data: 'it'
+                    text: "Смурфики",
+                    callback_data: 'smurf'
                 }],
             ],
      }
@@ -210,7 +221,7 @@ bot.action('brave', ctx => {
 bot.action('avatar', ctx => {
     bot.telegram.sendMessage(ctx.chat.id, 'Ви помилилися!:( Це неправильна відповідь.')
 })
-bot.action('it', ctx => {
+bot.action('smurf', ctx => {
     bot.telegram.sendMessage(ctx.chat.id, 'Ви помилилися!:( Це неправильна відповідь.')
 })
 
@@ -295,6 +306,49 @@ bot.action('one', ctx => {
 bot.action('dream', ctx => {
     bot.telegram.sendMessage(ctx.chat.id, 'Ви помилилися!:( Це неправильна відповідь.')
 })
+
+//Выбор №6
+bot.hears('choice6', ctx => {
+    console.log(ctx.from)
+    let choiceMessage = 'Зробіть вибір:';
+    bot.telegram.sendMessage(ctx.chat.id, choiceMessage, {
+        reply_markup: {
+            inline_keyboard: [
+                [{
+                    text: "Веном",
+                    callback_data: 'venom'
+                },
+                {
+                    text: "Человек-паук 3: Враг в отражении",
+                    callback_data: 'spiderman'
+                }],
+                [{
+                    text: "Мстители: Война бесконечности",
+                    callback_data: 'avengers'
+                },
+                {
+                    text: "Тёмный рыцарь",
+                    callback_data: 'darkknight'
+                }],
+            ],
+     }
+})
+})
+
+bot.action('venom', ctx => {
+    bot.telegram.sendMessage(ctx.chat.id, 'Вітаю! Це правильна відповідь.')
+})
+bot.action('spiderman', ctx => {
+    bot.telegram.sendMessage(ctx.chat.id, 'Ви помилилися!:( Це неправильна відповідь.')
+})
+bot.action('avengers', ctx => {
+    bot.telegram.sendMessage(ctx.chat.id, 'Ви помилилися!:( Це неправильна відповідь.')
+})
+bot.action('darkknight', ctx => {
+    bot.telegram.sendMessage(ctx.chat.id, 'Ви помилилися!:( Це неправильна відповідь.')
+})
+
+
 
 
 
