@@ -9,44 +9,23 @@ bot.command('start', ctx => {
 })
 bot.command('help', ctx => {
     console.log(ctx.from)
-    bot.telegram.sendMessage(ctx.chat.id, 'Всі доступні команди: \n play - команда для початку гри \n choice - команда для вибору відповіді', {
+    bot.telegram.sendMessage(ctx.chat.id, 'Всі доступні команди: \n play - команда для початку гри', {
     })
 })
 
 bot.hears('play', ctx => {
     console.log(ctx.from)
-    let playMessage = 'Успіхів! Щоб почати гру натисніть на "Питання", якщо ти хочеш вийти натисніть "Вийти"';
-    ctx.deleteMessage();
+    let playMessage = 'Успіхів! Щоб почати гру натисніть на будь-яку вікторину зі списку. Для перегляду статистики по набраним балам написніть на "Статистика"';
     bot.telegram.sendMessage(ctx.chat.id, playMessage, {
         reply_markup: {
             inline_keyboard: [
                 [{
-                    text: "Питання №1",
+                    text: "Вікторина кіно \ud83c\udfa5",
                     callback_data: 'question1'
-                },
-                {
-                    text: "Питання №2",
-                    callback_data: 'question2'
                 }],
                 [{
-                    text: "Питання №3",
-                    callback_data: 'question3'
-                },
-                {
-                    text: "Питання №4",
-                    callback_data: 'question4'
-                }],
-                [{
-                    text: "Питання №5",
-                    callback_data: 'question5'
-                },
-                {
-                    text: "Питання №6",
-                    callback_data: 'question6'
-                }],
-                [{
-                    text: "Вийти",
-                    callback_data: 'Cancel'
+                    text: "Статистика \ud83d\udcca",
+                    callback_data: 'stats'
                 }]
             ],
     }   
@@ -66,7 +45,7 @@ bot.action('question1', async ctx => {
         source: "res/frame1.png"
     })
     let choiceMessage = 'Зробіть вибір:';
-    await waitFor(3000);
+    await waitFor(1500);
     await bot.telegram.sendMessage(ctx.chat.id, choiceMessage, {
         reply_markup: {
             inline_keyboard: [
@@ -89,52 +68,68 @@ bot.action('question1', async ctx => {
             ],
      }
     })
-    })
+})
 
     bot.action('criminal', ctx => {
-        bot.telegram.sendMessage(ctx.chat.id, 'Вітаю! Це правильна відповідь.', {
+        bot.telegram.sendMessage(ctx.chat.id, '\u2705 Вірно (+2 бали)', {
             reply_markup: {
                 inline_keyboard: [
                     [{
-                        text: "Далі",
+                        text: "Наступне питання \u27a1\ufe0f",
                         callback_data: 'question2'
                     }],
+                    [{
+                        text: "Статистика \ud83d\udcca",
+                        callback_data: 'stats'
+                    }]
                 ],
          }
         })
     })
     bot.action('forest', ctx => {
-        bot.telegram.sendMessage(ctx.chat.id, 'Ви помилилися!:( Це неправильна відповідь.', {
+        bot.telegram.sendMessage(ctx.chat.id, '\u274c Помилка(-2 бали)', {
             reply_markup: {
                 inline_keyboard: [
                     [{
-                        text: "Далі",
+                        text: "Наступне питання \u27a1\ufe0f",
                         callback_data: 'question2'
                     }],
+                    [{
+                        text: "Статистика \ud83d\udcca",
+                        callback_data: 'stats'
+                    }]
                 ],
          }
         })
     })
     bot.action('mile', ctx => {
-        bot.telegram.sendMessage(ctx.chat.id, 'Ви помилилися!:( Це неправильна відповідь.', {
+        bot.telegram.sendMessage(ctx.chat.id, '\u274c Помилка(-2 бали)', {
             reply_markup: {
                 inline_keyboard: [
                     [{
-                        text: "Далі",
+                        text: "Наступне питання \u27a1\ufe0f",
                         callback_data: 'question2'
                     }],
+                    [{
+                        text: "Статистика \ud83d\udcca",
+                        callback_data: 'stats'
+                    }]
                 ],
          }
         })
     })
     bot.action('old', ctx => {
-        bot.telegram.sendMessage(ctx.chat.id, 'Ви помилилися!:( Це неправильна відповідь.', {
+        bot.telegram.sendMessage(ctx.chat.id, '\u274c Помилка(-2 бали)', {
             reply_markup: {
                 inline_keyboard: [
                     [{
-                        text: "Далі",
+                        text: "Наступне питання \u27a1\ufe0f",
                         callback_data: 'question2'
                     }],
+                    [{
+                        text: "Статистика \ud83d\udcca",
+                        callback_data: 'stats'
+                    }]
                 ],
          }
         })
@@ -146,7 +141,7 @@ bot.action('question2',  async ctx => {
         source: "res/frame2.png"
     })
     let choiceMessage = 'Зробіть вибір:';
-    await waitFor(3000);
+    await waitFor(1500);
     await bot.telegram.sendMessage(ctx.chat.id, choiceMessage, {
         reply_markup: {
             inline_keyboard: [
@@ -172,49 +167,65 @@ bot.action('question2',  async ctx => {
 })
 
 bot.action('terminator', ctx => {
-    bot.telegram.sendMessage(ctx.chat.id, 'Ви помилилися!:( Це неправильна відповідь.', {
+    bot.telegram.sendMessage(ctx.chat.id, '\u274c Невірно (-2 бали)', {
         reply_markup: {
             inline_keyboard: [
                 [{
-                    text: "Далі",
+                    text: "Наступне питання \u27a1\ufe0f",
                     callback_data: 'question3'
                 }],
+                [{
+                    text: "Статистика \ud83d\udcca",
+                    callback_data: 'stats'
+                }]
             ],
      }
     })
 })
 bot.action('jango', ctx => {
-    bot.telegram.sendMessage(ctx.chat.id, 'Ви помилилися!:( Це неправильна відповідь.', {
+    bot.telegram.sendMessage(ctx.chat.id, '\u274c Невірно (-2 бали)', {
         reply_markup: {
             inline_keyboard: [
                 [{
-                    text: "Далі",
+                    text: "Наступне питання \u27a1\ufe0f",
                     callback_data: 'question3'
                 }],
+                [{
+                    text: "Статистика \ud83d\udcca",
+                    callback_data: 'stats'
+                }]
             ],
      }
     })
 })
 bot.action('oneplusone', ctx => {
-    bot.telegram.sendMessage(ctx.chat.id, 'Ви помилилися!:( Це неправильна відповідь.', {
+    bot.telegram.sendMessage(ctx.chat.id, '\u274c Невірно (-2 бали)', {
         reply_markup: {
             inline_keyboard: [
                 [{
-                    text: "Далі",
+                    text: "Наступне питання \u27a1\ufe0f",
                     callback_data: 'question3'
                 }],
+                [{
+                    text: "Статистика \ud83d\udcca",
+                    callback_data: 'stats'
+                }]
             ],
      }
     })
 })
 bot.action('ventura', ctx => {
-    bot.telegram.sendMessage(ctx.chat.id, 'Вітаю! Це правильна відповідь.', {
+    bot.telegram.sendMessage(ctx.chat.id, '\u2705 Вітаю! Це правильна відповідь (+2 бали)', {
         reply_markup: {
             inline_keyboard: [
                 [{
-                    text: "Далі",
+                    text: "Наступне питання \u27a1\ufe0f",
                     callback_data: 'question3'
                 }],
+                [{
+                    text: "Статистика \ud83d\udcca",
+                    callback_data: 'stats'
+                }]
             ],
      }
     })
@@ -226,7 +237,7 @@ bot.action('question3', async ctx => {
         source: "res/frame3.png"
     })
     let choiceMessage = 'Зробіть вибір:';
-    await waitFor(3000);
+    await waitFor(1500);
     await bot.telegram.sendMessage(ctx.chat.id, choiceMessage, {
         reply_markup: {
             inline_keyboard: [
@@ -252,49 +263,65 @@ bot.action('question3', async ctx => {
 })
 
 bot.action('island', ctx => {
-    bot.telegram.sendMessage(ctx.chat.id, 'Ви помилилися!:( Це неправильна відповідь.', {
+    bot.telegram.sendMessage(ctx.chat.id, '\u274c Ви помилилися (-2 бали)', {
         reply_markup: {
             inline_keyboard: [
                 [{
-                    text: "Далі",
+                    text: "Наступне питання \u27a1\ufe0f",
                     callback_data: 'question4'
                 }],
+                [{
+                    text: "Статистика \ud83d\udcca",
+                    callback_data: 'stats'
+                }]
             ],
      }
     })
 })
 bot.action('brave', ctx => {
-    bot.telegram.sendMessage(ctx.chat.id, 'Вітаю! Це правильна відповідь.', {
+    bot.telegram.sendMessage(ctx.chat.id, '\u2705 Дуже добре (+2 бали).', {
         reply_markup: {
             inline_keyboard: [
                 [{
-                    text: "Далі",
+                    text: "Наступне питання \u27a1\ufe0f",
                     callback_data: 'question4'
                 }],
+                [{
+                    text: "Статистика \ud83d\udcca",
+                    callback_data: 'stats'
+                }]
             ],
      }
     })
 })
 bot.action('avatar', ctx => {
-    bot.telegram.sendMessage(ctx.chat.id, 'Ви помилилися!:( Це неправильна відповідь.', {
+    bot.telegram.sendMessage(ctx.chat.id, '\u274c Ви помилилися! (-2 бали)', {
         reply_markup: {
             inline_keyboard: [
                 [{
-                    text: "Далі",
+                    text: "Наступне питання \u27a1\ufe0f",
                     callback_data: 'question4'
                 }],
+                [{
+                    text: "Статистика \ud83d\udcca",
+                    callback_data: 'stats'
+                }]
             ],
      }
     })
 })
 bot.action('smurf', ctx => {
-    bot.telegram.sendMessage(ctx.chat.id, 'Ви помилилися!:( Це неправильна відповідь.', {
+    bot.telegram.sendMessage(ctx.chat.id, '\u274c Ви помилилися! (-2 бали)', {
         reply_markup: {
             inline_keyboard: [
                 [{
-                    text: "Далі",
+                    text: "Наступне питання \u27a1\ufe0f",
                     callback_data: 'question4'
                 }],
+                [{
+                    text: "Статистика \ud83d\udcca",
+                    callback_data: 'stats'
+                }]
             ],
      }
     })
@@ -306,7 +333,7 @@ bot.action('question4', async ctx => {
         source: "res/frame4.png"
     })
     let choiceMessage = 'Зробіть вибір:';
-    await waitFor(3000);
+    await waitFor(1500);
     await bot.telegram.sendMessage(ctx.chat.id, choiceMessage, {
         reply_markup: {
             inline_keyboard: [
@@ -316,7 +343,7 @@ bot.action('question4', async ctx => {
                 },
                 {
                     text: "Храброе сердце",
-                    callback_data: 'brave'
+                    callback_data: 'brave2'
                 }],
                 [{
                     text: "1917",
@@ -332,49 +359,65 @@ bot.action('question4', async ctx => {
 })
 
 bot.action('shooter', ctx => {
-    bot.telegram.sendMessage(ctx.chat.id, 'Ви помилилися!:( Це неправильна відповідь.', {
+    bot.telegram.sendMessage(ctx.chat.id, '\u274c Невірно (-2 бали)', {
         reply_markup: {
             inline_keyboard: [
                 [{
-                    text: "Далі",
+                    text: "Наступне питання \u27a1\ufe0f",
                     callback_data: 'question5'
                 }],
+                [{
+                    text: "Статистика \ud83d\udcca",
+                    callback_data: 'stats'
+                }]
             ],
      }
     })
 })
-bot.action('brave', ctx => {
-    bot.telegram.sendMessage(ctx.chat.id, 'Ви помилилися!:( Це неправильна відповідь.', {
+bot.action('brave2', ctx => {
+    bot.telegram.sendMessage(ctx.chat.id, '\u274c Невірно (-2 бали)', {
         reply_markup: {
             inline_keyboard: [
                 [{
-                    text: "Далі",
+                    text: "Наступне питання \u27a1\ufe0f",
                     callback_data: 'question5'
                 }],
+                [{
+                    text: "Статистика \ud83d\udcca",
+                    callback_data: 'stats'
+                }]
             ],
      }
     })
 })
 bot.action('1917', ctx => {
-    bot.telegram.sendMessage(ctx.chat.id, 'Ви помилилися!:( Це неправильна відповідь.',{
+    bot.telegram.sendMessage(ctx.chat.id, '\u274c Невірно (-2 бали)',{
         reply_markup: {
             inline_keyboard: [
                 [{
-                    text: "Далі",
+                    text: "Наступне питання \u27a1\ufe0f",
                     callback_data: 'question5'
                 }],
+                [{
+                    text: "Статистика \ud83d\udcca",
+                    callback_data: 'stats'
+                }]
             ],
      }
     })
 })
 bot.action('survivor', ctx => {
-    bot.telegram.sendMessage(ctx.chat.id, 'Вітаю! Це правильна відповідь.', {
+    bot.telegram.sendMessage(ctx.chat.id, '\u2705 Молодець, це правильна відповідь (+2 бали)', {
         reply_markup: {
             inline_keyboard: [
                 [{
-                    text: "Далі",
+                    text: "Наступне питання \u27a1\ufe0f",
                     callback_data: 'question5'
                 }],
+                [{
+                    text: "Статистика \ud83d\udcca",
+                    callback_data: 'stats'
+                }]
             ],
      }
     })
@@ -388,7 +431,7 @@ bot.action('question5', async ctx => {
         source: "res/frame5.png"
     })
     let choiceMessage = 'Зробіть вибір:';
-    await waitFor(3000);
+    await waitFor(1500);
     await bot.telegram.sendMessage(ctx.chat.id, choiceMessage, {
         reply_markup: {
             inline_keyboard: [
@@ -414,49 +457,65 @@ bot.action('question5', async ctx => {
 })
 
 bot.action('hooligans', ctx => {
-    bot.telegram.sendMessage(ctx.chat.id, 'Ви помилилися!:( Це неправильна відповідь.', {
+    bot.telegram.sendMessage(ctx.chat.id, '\u274c Помилка (-2 бали)', {
         reply_markup: {
             inline_keyboard: [
                 [{
-                    text: "Далі",
+                    text: "Наступне питання \u27a1\ufe0f",
                     callback_data: 'question6'
                 }],
+                [{
+                    text: "Статистика \ud83d\udcca",
+                    callback_data: 'stats'
+                }]
             ],
      }
     })
 })
 bot.action('bridge', ctx => {
-    bot.telegram.sendMessage(ctx.chat.id, 'Ви помилилися!:( Це неправильна відповідь.', {
+    bot.telegram.sendMessage(ctx.chat.id, '\u274c Помилка (-2 бали)', {
         reply_markup: {
             inline_keyboard: [
                 [{
-                    text: "Далі",
+                    text: "Наступне питання \u27a1\ufe0f",
                     callback_data: 'question6'
                 }],
+                [{
+                    text: "Статистика \ud83d\udcca",
+                    callback_data: 'stats'
+                }]
             ],
      }
     })
 })
 bot.action('one', ctx => {
-    bot.telegram.sendMessage(ctx.chat.id, 'Вітаю! Це правильна відповідь.', {
+    bot.telegram.sendMessage(ctx.chat.id, '\u2705 Вірно (+2 бали)', {
         reply_markup: {
             inline_keyboard: [
                 [{
-                    text: "Далі",
+                    text: "Наступне питання \u27a1\ufe0f",
                     callback_data: 'question6'
                 }],
+                [{
+                    text: "Статистика \ud83d\udcca",
+                    callback_data: 'stats'
+                }]
             ],
      }
     })
 })
 bot.action('dream', ctx => {
-    bot.telegram.sendMessage(ctx.chat.id, 'Ви помилилися!:( Це неправильна відповідь.', {
+    bot.telegram.sendMessage(ctx.chat.id, '\u274c Помилка (-2 бали)', {
         reply_markup: {
             inline_keyboard: [
                 [{
-                    text: "Далі",
+                    text: "Наступне питання \u27a1\ufe0f",
                     callback_data: 'question6'
                 }],
+                [{
+                    text: "Статистика \ud83d\udcca",
+                    callback_data: 'stats'
+                }]
             ],
      }
     })
@@ -468,7 +527,7 @@ bot.action('question6', async ctx => {
         source: "res/frame6.png"
     })
     let choiceMessage = 'Зробіть вибір:';
-    await waitFor(3000);
+    await waitFor(1500);
     await bot.telegram.sendMessage(ctx.chat.id, choiceMessage, {
         reply_markup: {
             inline_keyboard: [
@@ -494,57 +553,72 @@ bot.action('question6', async ctx => {
 })
 
 bot.action('venom', ctx => {
-    bot.telegram.sendMessage(ctx.chat.id, 'Вітаю! Це правильна відповідь.' , {
+    bot.telegram.sendMessage(ctx.chat.id, '\u2705 Молодець, але це було легко (+2 бали)' , {
         reply_markup: {
             inline_keyboard: [
                 [{
-                    text: "Зіграти у вікторину ще раз",
+                    text: "Зіграти у вікторину ще раз \ud83d\udd01",
                     callback_data: 'question1'
                 }],
+                [{
+                    text: "Статистика \ud83d\udcca",
+                    callback_data: 'stats'
+                }]
             ],
      }
     })
 })
 bot.action('spiderman', ctx => {
-    bot.telegram.sendMessage(ctx.chat.id, 'Ви помилилися!:( Це неправильна відповідь.', {
+    bot.telegram.sendMessage(ctx.chat.id, '\u274c Помилка, спробуй ще раз (-2 бали)', {
         reply_markup: {
             inline_keyboard: [
                 [{
-                    text: "Зіграти у вікторину ще раз",
+                    text: "Зіграти у вікторину ще раз \ud83d\udd01",
                     callback_data: 'question1'
                 }],
+                [{
+                    text: "Статистика \ud83d\udcca",
+                    callback_data: 'stats'
+                }]
             ],
      }
     })
 })
 bot.action('avengers', ctx => {
-    bot.telegram.sendMessage(ctx.chat.id, 'Ви помилилися!:( Це неправильна відповідь.', {
+    bot.telegram.sendMessage(ctx.chat.id, '\u274c Помилка, спробуй ще раз (-2 бали)', {
         reply_markup: {
             inline_keyboard: [
                 [{
-                    text: "Зіграти у вікторину ще раз",
+                    text: "Зіграти у вікторину ще раз \ud83d\udd01",
                     callback_data: 'question1'
                 }],
+                [{
+                    text: "Статистика \ud83d\udcca",
+                    callback_data: 'stats'
+                }]
             ],
      }
     })
 })
 bot.action('darkknight', ctx => {
-    bot.telegram.sendMessage(ctx.chat.id, 'Ви помилилися!:( Це неправильна відповідь.', {
+    bot.telegram.sendMessage(ctx.chat.id, '\u274c Помилка, спробуй ще раз (-2 бали)', {
         reply_markup: {
             inline_keyboard: [
                 [{
-                    text: "Зіграти у вікторину ще раз",
+                    text: "Зіграти у вікторину ще раз \ud83d\udd01",
                     callback_data: 'question1'
                 }],
+                [{
+                    text: "Статистика \ud83d\udcca",
+                    callback_data: 'stats'
+                }]
             ],
      }
     })
 })
 
-//Выход из панели игры
-bot.action('Cancel', ctx => {
-
+bot.action('stats', ctx =>{
+    bot.telegram.sendMessage(ctx.chat.id, 'Набраних балів:')
 })
 
 bot.launch();
