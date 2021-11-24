@@ -32,18 +32,33 @@ bot.hears('play', ctx => {
 })
 })
 
-function waitFor (ms) {
+function waitFor (ms) { //функція очікування
     return new Promise ((resolve, reject) => {
         setTimeout(resolve, ms)
     })
 }
 
+function dltMessages(context) { //функція видалення
+    const id = context.update.callback_query.message.chat.id;
+    const msg_id = context.update.callback_query.message.message_id;
+    msgForDelete.push( msg_id);
+    for (let i in msgForDelete) {
+         bot.telegram.deleteMessage(id, msgForDelete[i]);
+    }
+}
+
 //Кадры с фильмами
+let msgForDelete = []; //масив повідомлень, які потрібно видалити
 bot.action('question1', async ctx => {
-    bot.telegram.sendMessage(ctx.chat.id, 'Із якого фільму прикріплений кадр?')
+    msgForDelete.push( ctx.update.callback_query.message.message_id); //додаємо id повідомлення, яке потрібно видалити
+    bot.telegram.sendMessage(ctx.chat.id, 'Із якого фільму прикріплений кадр?').then((result) => {
+	msgForDelete.push(result.message_id);//додаємо id повідомлення, яке потрібно видалити
+    });
     bot.telegram.sendPhoto(ctx.chat.id, {
         source: "res/frame1.png"
-    })
+    }).then((result) => {
+	msgForDelete.push(result.message_id);//додаємо id повідомлення, яке потрібно видалити
+    });
     let choiceMessage = 'Зробіть вибір:';
     await waitFor(1500);
     await bot.telegram.sendMessage(ctx.chat.id, choiceMessage, {
@@ -85,6 +100,7 @@ bot.action('question1', async ctx => {
                 ],
          }
         })
+	dltMessages(ctx) //виклик функції видалення
     })
     bot.action('forest', ctx => {
         bot.telegram.sendMessage(ctx.chat.id, '\u274c Помилка(-2 бали)', {
@@ -101,6 +117,7 @@ bot.action('question1', async ctx => {
                 ],
          }
         })
+    dltMessages(ctx)//виклик функції видалення
     })
     bot.action('mile', ctx => {
         bot.telegram.sendMessage(ctx.chat.id, '\u274c Помилка(-2 бали)', {
@@ -117,6 +134,7 @@ bot.action('question1', async ctx => {
                 ],
          }
         })
+    dltMessages(ctx)//виклик функції видалення
     })
     bot.action('old', ctx => {
         bot.telegram.sendMessage(ctx.chat.id, '\u274c Помилка(-2 бали)', {
@@ -133,13 +151,19 @@ bot.action('question1', async ctx => {
                 ],
          }
         })
+    dltMessages(ctx)//виклик функції видалення
     })
 
 bot.action('question2',  async ctx => {
-    bot.telegram.sendMessage(ctx.chat.id, 'Із якого фільму прикріплений кадр?')
+    msgForDelete.push( ctx.update.callback_query.message.message_id); //додаємо id повідомлення, яке потрібно видалити
+    bot.telegram.sendMessage(ctx.chat.id, 'Із якого фільму прикріплений кадр?').then((result) => {
+        msgForDelete.push(result.message_id);//додаємо id повідомлення, яке потрібно видалити
+    });
     bot.telegram.sendPhoto(ctx.chat.id, {
         source: "res/frame2.png"
-    })
+    }).then((result) => {
+        msgForDelete.push(result.message_id);//додаємо id повідомлення, яке потрібно видалити
+    });
     let choiceMessage = 'Зробіть вибір:';
     await waitFor(1500);
     await bot.telegram.sendMessage(ctx.chat.id, choiceMessage, {
@@ -181,6 +205,7 @@ bot.action('terminator', ctx => {
             ],
      }
     })
+    dltMessages(ctx) //виклик функції видалення
 })
 bot.action('jango', ctx => {
     bot.telegram.sendMessage(ctx.chat.id, '\u274c Невірно (-2 бали)', {
@@ -197,6 +222,7 @@ bot.action('jango', ctx => {
             ],
      }
     })
+    dltMessages(ctx) //виклик функції видалення
 })
 bot.action('oneplusone', ctx => {
     bot.telegram.sendMessage(ctx.chat.id, '\u274c Невірно (-2 бали)', {
@@ -213,6 +239,7 @@ bot.action('oneplusone', ctx => {
             ],
      }
     })
+    dltMessages(ctx) //виклик функції видалення
 })
 bot.action('ventura', ctx => {
     bot.telegram.sendMessage(ctx.chat.id, '\u2705 Вітаю! Це правильна відповідь (+2 бали)', {
@@ -229,13 +256,19 @@ bot.action('ventura', ctx => {
             ],
      }
     })
+    dltMessages(ctx) //виклик функції видалення
 })
 
 bot.action('question3', async ctx => {
-    bot.telegram.sendMessage(ctx.chat.id, 'Із якого фільму прикріплений кадр?')
+    msgForDelete.push( ctx.update.callback_query.message.message_id); //додаємо id повідомлення, яке потрібно видалити
+    bot.telegram.sendMessage(ctx.chat.id, 'Із якого фільму прикріплений кадр?').then((result) => {
+        msgForDelete.push(result.message_id);//додаємо id повідомлення, яке потрібно видалити
+    });
     bot.telegram.sendPhoto(ctx.chat.id, {
         source: "res/frame3.png"
-    })
+    }).then((result) => {
+        msgForDelete.push(result.message_id);//додаємо id повідомлення, яке потрібно видалити
+    });
     let choiceMessage = 'Зробіть вибір:';
     await waitFor(1500);
     await bot.telegram.sendMessage(ctx.chat.id, choiceMessage, {
@@ -277,6 +310,7 @@ bot.action('island', ctx => {
             ],
      }
     })
+    dltMessages(ctx) //виклик функції видалення
 })
 bot.action('brave', ctx => {
     bot.telegram.sendMessage(ctx.chat.id, '\u2705 Дуже добре (+2 бали).', {
@@ -293,6 +327,7 @@ bot.action('brave', ctx => {
             ],
      }
     })
+    dltMessages(ctx) //виклик функції видалення
 })
 bot.action('avatar', ctx => {
     bot.telegram.sendMessage(ctx.chat.id, '\u274c Ви помилилися! (-2 бали)', {
@@ -309,6 +344,7 @@ bot.action('avatar', ctx => {
             ],
      }
     })
+    dltMessages(ctx) //виклик функції видалення
 })
 bot.action('smurf', ctx => {
     bot.telegram.sendMessage(ctx.chat.id, '\u274c Ви помилилися! (-2 бали)', {
@@ -325,13 +361,19 @@ bot.action('smurf', ctx => {
             ],
      }
     })
+    dltMessages(ctx) //виклик функції видалення
 })
 
 bot.action('question4', async ctx => {
-    bot.telegram.sendMessage(ctx.chat.id, 'Із якого фільму прикріплений кадр?')
+    msgForDelete.push( ctx.update.callback_query.message.message_id); //додаємо id повідомлення, яке потрібно видалити
+    bot.telegram.sendMessage(ctx.chat.id, 'Із якого фільму прикріплений кадр?').then((result) => {
+        msgForDelete.push(result.message_id);//додаємо id повідомлення, яке потрібно видалити
+    });
     bot.telegram.sendPhoto(ctx.chat.id, {
         source: "res/frame4.png"
-    })
+    }).then((result) => {
+        msgForDelete.push(result.message_id);//додаємо id повідомлення, яке потрібно видалити
+    });
     let choiceMessage = 'Зробіть вибір:';
     await waitFor(1500);
     await bot.telegram.sendMessage(ctx.chat.id, choiceMessage, {
@@ -373,6 +415,7 @@ bot.action('shooter', ctx => {
             ],
      }
     })
+    dltMessages(ctx) //виклик функції видалення
 })
 bot.action('brave2', ctx => {
     bot.telegram.sendMessage(ctx.chat.id, '\u274c Невірно (-2 бали)', {
@@ -389,6 +432,7 @@ bot.action('brave2', ctx => {
             ],
      }
     })
+    dltMessages(ctx) //виклик функції видалення
 })
 bot.action('1917', ctx => {
     bot.telegram.sendMessage(ctx.chat.id, '\u274c Невірно (-2 бали)',{
@@ -405,6 +449,7 @@ bot.action('1917', ctx => {
             ],
      }
     })
+    dltMessages(ctx) //виклик функції видалення
 })
 bot.action('survivor', ctx => {
     bot.telegram.sendMessage(ctx.chat.id, '\u2705 Молодець, це правильна відповідь (+2 бали)', {
@@ -421,15 +466,21 @@ bot.action('survivor', ctx => {
             ],
      }
     })
+    dltMessages(ctx) //виклик функції видалення
 })
 
 
 
 bot.action('question5', async ctx => {
-    bot.telegram.sendMessage(ctx.chat.id, 'Із якого фільму прикріплений кадр?')
+    msgForDelete.push( ctx.update.callback_query.message.message_id); //додаємо id повідомлення, яке потрібно видалити
+    bot.telegram.sendMessage(ctx.chat.id, 'Із якого фільму прикріплений кадр?').then((result) => {
+        msgForDelete.push(result.message_id);//додаємо id повідомлення, яке потрібно видалити
+    });
     bot.telegram.sendPhoto(ctx.chat.id, {
         source: "res/frame5.png"
-    })
+    }).then((result) => {
+        msgForDelete.push(result.message_id);//додаємо id повідомлення, яке потрібно видалити
+    });
     let choiceMessage = 'Зробіть вибір:';
     await waitFor(1500);
     await bot.telegram.sendMessage(ctx.chat.id, choiceMessage, {
@@ -471,6 +522,7 @@ bot.action('hooligans', ctx => {
             ],
      }
     })
+    dltMessages(ctx) //виклик функції видалення
 })
 bot.action('bridge', ctx => {
     bot.telegram.sendMessage(ctx.chat.id, '\u274c Помилка (-2 бали)', {
@@ -487,6 +539,7 @@ bot.action('bridge', ctx => {
             ],
      }
     })
+    dltMessages(ctx) //виклик функції видалення
 })
 bot.action('one', ctx => {
     bot.telegram.sendMessage(ctx.chat.id, '\u2705 Вірно (+2 бали)', {
@@ -503,6 +556,7 @@ bot.action('one', ctx => {
             ],
      }
     })
+    dltMessages(ctx) //виклик функції видалення
 })
 bot.action('dream', ctx => {
     bot.telegram.sendMessage(ctx.chat.id, '\u274c Помилка (-2 бали)', {
@@ -519,13 +573,19 @@ bot.action('dream', ctx => {
             ],
      }
     })
+    dltMessages(ctx) //виклик функції видалення
 })
 
 bot.action('question6', async ctx => {
-    bot.telegram.sendMessage(ctx.chat.id, 'Із якого фільму прикріплений кадр?')
+    msgForDelete.push( ctx.update.callback_query.message.message_id); //додаємо id повідомлення, яке потрібно видалити
+    bot.telegram.sendMessage(ctx.chat.id, 'Із якого фільму прикріплений кадр?').then((result) => {
+        msgForDelete.push(result.message_id);//додаємо id повідомлення, яке потрібно видалити
+    });
     bot.telegram.sendPhoto(ctx.chat.id, {
         source: "res/frame6.png"
-    })
+    }).then((result) => {
+        msgForDelete.push(result.message_id);//додаємо id повідомлення, яке потрібно видалити
+    });
     let choiceMessage = 'Зробіть вибір:';
     await waitFor(1500);
     await bot.telegram.sendMessage(ctx.chat.id, choiceMessage, {
@@ -567,6 +627,7 @@ bot.action('venom', ctx => {
             ],
      }
     })
+    dltMessages(ctx) //виклик функції видалення
 })
 bot.action('spiderman', ctx => {
     bot.telegram.sendMessage(ctx.chat.id, '\u274c Помилка, спробуй ще раз (-2 бали)', {
@@ -583,6 +644,7 @@ bot.action('spiderman', ctx => {
             ],
      }
     })
+    dltMessages(ctx) //виклик функції видалення
 })
 bot.action('avengers', ctx => {
     bot.telegram.sendMessage(ctx.chat.id, '\u274c Помилка, спробуй ще раз (-2 бали)', {
@@ -599,6 +661,7 @@ bot.action('avengers', ctx => {
             ],
      }
     })
+    dltMessages(ctx) //виклик функції видалення
 })
 bot.action('darkknight', ctx => {
     bot.telegram.sendMessage(ctx.chat.id, '\u274c Помилка, спробуй ще раз (-2 бали)', {
@@ -615,6 +678,7 @@ bot.action('darkknight', ctx => {
             ],
      }
     })
+    dltMessages(ctx) //виклик функції видалення
 })
 
 bot.action('stats', ctx =>{
